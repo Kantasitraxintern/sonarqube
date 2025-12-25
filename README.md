@@ -200,6 +200,121 @@ cd my-python-api
 
 ---
 
+## 🔄 การสแกนหลายโปรเจค
+
+### คำถาม: ถ้าสแกนโปรเจคที่ 1 แล้ว จะสแกนโปรเจคที่ 2 ต้องทำยังไง?
+
+**คำตอบ**: ง่ายมาก! แค่แต่ละโปรเจคมี `sonar-project.properties` เป็นของตัวเอง และ `projectKey` ไม่ซ้ำกัน
+
+### 📁 โครงสร้างที่แนะนำ:
+
+```
+workspace/
+├── project-1/
+│   ├── sonarqube/                    ← Clone ไว้ที่นี่
+│   ├── sonar-project.properties      ← projectKey=project-1
+│   └── src/
+│
+├── project-2/
+│   ├── sonarqube/                    ← Clone ไว้ที่นี่
+│   ├── sonar-project.properties      ← projectKey=project-2
+│   └── backend/
+│
+└── project-3/
+    ├── sonarqube/                    ← Clone ไว้ที่นี่
+    ├── sonar-project.properties      ← projectKey=project-3
+    └── ...
+```
+
+### 🎯 ขั้นตอนการสแกน:
+
+#### 1️⃣ สแกนโปรเจคที่ 1
+```powershell
+cd C:\workspace\project-1
+
+# สร้าง config (ครั้งแรก)
+copy sonarqube\sonar-project.properties.template sonar-project.properties
+
+# แก้ไข sonar-project.properties
+# sonar.projectKey=project-1
+# sonar.projectName=Project 1
+
+# สแกน
+.\sonarqube\sonar.ps1 scan
+```
+
+#### 2️⃣ สแกนโปรเจคที่ 2 (SonarQube ยังรันอยู่)
+```powershell
+cd C:\workspace\project-2
+
+# สร้าง config (ครั้งแรก)
+copy sonarqube\sonar-project.properties.template sonar-project.properties
+
+# แก้ไข sonar-project.properties
+# sonar.projectKey=project-2
+# sonar.projectName=Project 2
+
+# สแกนเลย! (ไม่ต้อง restart SonarQube)
+.\sonarqube\sonar.ps1 scan
+```
+
+#### 3️⃣ สแกนโปรเจคที่ 3
+```powershell
+cd C:\workspace\project-3
+# แก้ไข sonar-project.properties
+# sonar.projectKey=project-3
+
+.\sonarqube\sonar.ps1 scan
+```
+
+### ✅ สิ่งสำคัญ:
+
+**ต้องทำ:**
+- ✅ แต่ละโปรเจคต้องมี `sonar-project.properties` เป็นของตัวเอง
+- ✅ `projectKey` ต้องไม่ซ้ำกัน (เช่น project-1, project-2, shop, api)
+- ✅ SonarQube ต้องรันอยู่ (แต่เริ่มครั้งเดียวพอ)
+
+**ไม่ต้องทำ:**
+- ❌ ไม่ต้องหยุด SonarQube ระหว่างสแกน
+- ❌ ไม่ต้อง restart SonarQube
+- ❌ ไม่ต้องสร้าง token ใหม่
+- ❌ ไม่ต้อง login ใหม่
+
+### 📊 ดูผลใน SonarQube UI:
+
+เข้า http://localhost:9000 จะเห็นโปรเจคทั้งหมด:
+
+```
+Projects
+├── Project 1 (project-1)      ← Dashboard แยก
+├── Project 2 (project-2)      ← Dashboard แยก
+└── Project 3 (project-3)      ← Dashboard แยก
+```
+
+### 💡 วิธีอื่น: ใช้ SonarQube ตัวเดียวสำหรับหลายโปรเจค
+
+```powershell
+# ติดตั้ง SonarQube ไว้ที่เดียว
+C:\sonarqube\
+
+# แต่ละโปรเจคมีแค่ sonar-project.properties
+C:\workspace\project-1\sonar-project.properties
+C:\workspace\project-2\sonar-project.properties
+
+# สแกนโดยเรียก script จากที่เดียว
+cd C:\workspace\project-1
+C:\sonarqube\sonar.ps1 scan
+
+cd C:\workspace\project-2
+C:\sonarqube\sonar.ps1 scan
+```
+
+**ข้อดี**: ประหยัดพื้นที่  
+**ข้อเสีย**: ต้องจำ path ของ sonar.ps1
+
+
+---
+
 ## 🔧 การตั้งค่า sonar-project.properties
 
 ### Template พื้นฐาน (คัดลอกได้เลย)
