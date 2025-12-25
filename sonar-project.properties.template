@@ -1,0 +1,37 @@
+# SonarQube Project Configuration
+# ================================
+# แก้ไขแค่ชื่อโปรเจคด้านล่างนี้เท่านั้น!
+
+# ข้อมูลโปรเจกต์ (แก้ไขตรงนี้!)
+sonar.projectKey=my-project
+sonar.projectName=My Project
+sonar.projectVersion=1.0
+
+# ที่อยู่ source code
+sonar.sources=.
+sonar.sourceEncoding=UTF-8
+
+# ไฟล์/โฟลเดอร์ที่ไม่ต้องการสแกน
+sonar.exclusions=\
+  **/node_modules/**,\
+  **/dist/**,\
+  **/build/**,\
+  **/coverage/**,\
+  **/.next/**,\
+  **/.nuxt/**,\
+  **/out/**,\
+  **/vendor/**,\
+  **/__pycache__/**,\
+  **/*.test.js,\
+  **/*.test.ts,\
+  **/*.spec.js,\
+  **/*.spec.ts,\
+  **/sonarqube/**,\
+  **/.env,\
+  **/.env.*
+
+# Quality Gate - รอผลลัพธ์
+sonar.qualitygate.wait=true
+
+# Server Configuration
+sonar.host.url=http://localhost:9000

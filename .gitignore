@@ -1,0 +1,55 @@
+# SonarQube Docker Setup - Git Ignore
+# ===================================
+
+# Docker volumes และ data
+*.sql
+*.db
+backup/
+data/
+logs/
+
+# SonarQube local data
+.sonar/
+.scannerwork/
+
+# Environment files (sensitive)
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Legacy/Not needed files
+docker-compose-scan.yml
+
+# Project specific config (only template should be committed)
+sonar-project.properties
+
+# Git folders in subdirectories (if any)
+sonarqube/.git/
+shop/.git/
