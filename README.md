@@ -6,6 +6,40 @@ SonarQube แบบอัตโนมัติ 100% สำหรับตรว�
 
 ---
 
+## 📋 สิ่งที่ต้องเตรียม
+
+### 1. ติดตั้ง Docker Desktop
+
+**Windows:**
+1. ดาวน์โหลด Docker Desktop: https://www.docker.com/products/docker-desktop/
+2. รันไฟล์ติดตั้ง `Docker Desktop Installer.exe`
+3. ทำตามขั้นตอนการติดตั้ง (ใช้ค่า default ได้)
+4. รีสตาร์ทเครื่อง (ถ้าขึ้นให้รีสตาร์ท)
+5. เปิด Docker Desktop และรอให้ status เป็น "Running" (สีเขียว)
+
+**ตรวจสอบว่าติดตั้งสำเร็จ:**
+```powershell
+# เปิด PowerShell แล้วรัน
+docker --version
+# ควรแสดงผล: Docker version 24.x.x หรือสูงกว่า
+```
+
+### 2. ตั้งค่า PowerShell (ครั้งเดียว)
+
+```powershell
+# เปิด PowerShell แบบ Administrator แล้วรัน
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# กด Y เพื่อยืนยัน
+```
+
+### ✅ พร้อมแล้ว!
+- ✅ Docker Desktop ติดตั้งแล้ว และเปิดอยู่
+- ✅ PowerShell ตั้งค่าแล้ว
+- ✅ RAM อย่างน้อย 4GB (แนะนำ 8GB)
+
+---
+
 ## 🎯 วิธีใช้งาน (3 ขั้นตอน)
 
 ### 1️⃣ Clone SonarQube มาวางในโปรเจคของคุณ
